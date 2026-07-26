@@ -11,12 +11,12 @@ export default function Hero() {
     <section
       className="
       relative
-      min-h-screen
+      min-h-[80vh]
       flex
       items-center
       bg-[#0B1F3A]
       overflow-hidden
-      pt-24
+      pt-32
       "
     >
 
