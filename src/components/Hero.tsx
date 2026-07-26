@@ -111,14 +111,15 @@ export default function Hero() {
 
             نصنع المحتوى
 
+           
+           
             <br />
+            
+            الذي يترك{" "}
 
-            الذي يترك
-
-            <span className="text-[#F9C846]">
-              أثرًا
-            </span>
-
+<span className="text-[#F9C846]">
+ أثراً
+</span>
 
           </h1>
 
