@@ -1,108 +1,144 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 
 export default function Header() {
 
-  return (
-
-    <header className="
-      w-full
-      flex
-      justify-between
-      items-center
-      px-10
-      py-5
-      bg-[#0B1F3A]
-      text-white
-      shadow-lg
-      relative
-      z-50
-    ">
+const [open,setOpen] = useState(false);
 
 
-      {/* Logo */}
+return (
 
-      <div className="flex items-center gap-4">
-
-        <Image
-          src="/images/logo.jpg"
-          alt="الطريق ميديا"
-          width={60}
-          height={60}
-          className="rounded-full"
-        />
-
-
-        <h1 className="
-          text-3xl
-          font-bold
-          text-[#F9C846]
-        ">
-          الطريق ميديا
-        </h1>
-
-      </div>
+<header className="
+w-full
+bg-[#0B1F3A]
+text-white
+shadow-lg
+relative
+z-50
+">
 
 
+<div className="
+flex
+justify-between
+items-center
+px-5
+py-4
+md:px-10
+">
 
 
-      {/* Menu */}
+<div className="flex items-center gap-3">
 
-      <nav className="
-        flex
-        gap-8
-        text-lg
-        items-center
-      ">
-
-
-        <a 
-          href="/"
-          className="hover:text-[#F9C846]"
-        >
-          الرئيسية
-        </a>
+<Image
+src="/images/logo.jpg"
+alt="الطريق ميديا"
+width={50}
+height={50}
+className="rounded-full"
+/>
 
 
-        <a 
-          href="#about"
-          className="hover:text-[#F9C846]"
-        >
-          من نحن
-        </a>
+<h1 className="
+text-xl
+md:text-3xl
+font-bold
+text-[#F9C846]
+">
+الطريق ميديا
+</h1>
 
 
-        <a 
-          href="#services"
-          className="hover:text-[#F9C846]"
-        >
-          الخدمات
-        </a>
-
-
-        <a 
-          href="#work"
-          className="hover:text-[#F9C846]"
-        >
-          أعمالنا
-        </a>
-
-
-        <a 
-          href="/admin"
-          className="hover:text-[#F9C846]"
-        >
-          الإدارة
-        </a>
-
-
-      </nav>
+</div>
 
 
 
-    </header>
+{/* زر الموبايل */}
 
-  );
+<button
+
+className="
+md:hidden
+text-3xl
+"
+
+onClick={()=>setOpen(!open)}
+
+>
+
+☰
+
+</button>
+
+
+
+<nav className="
+hidden
+md:flex
+gap-8
+text-lg
+">
+
+
+<a href="/">الرئيسية</a>
+
+<a href="#about">من نحن</a>
+
+<a href="#services">الخدمات</a>
+
+<a href="#work">أعمالنا</a>
+
+<a href="/admin">الإدارة</a>
+
+
+</nav>
+
+
+</div>
+
+
+
+
+{/* قائمة الموبايل */}
+
+{
+
+open && (
+
+<nav className="
+md:hidden
+flex
+flex-col
+text-center
+gap-5
+pb-6
+text-lg
+">
+
+
+<a href="/">الرئيسية</a>
+
+<a href="#about">من نحن</a>
+
+<a href="#services">الخدمات</a>
+
+<a href="#work">أعمالنا</a>
+
+<a href="/admin">الإدارة</a>
+
+
+</nav>
+
+)
+
+}
+
+
+</header>
+
+
+);
 
 }

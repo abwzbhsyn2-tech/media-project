@@ -21,17 +21,18 @@ export default function Hero() {
     >
 
 
-      <div
-        className="
-        max-w-7xl
-        mx-auto
-        px-6
-        grid
-        md:grid-cols-2
-        gap-12
-        items-center
-        "
-      >
+          <div
+      className="
+      max-w-7xl
+      mx-auto
+      px-6
+      grid
+      grid-cols-1
+      md:grid-cols-2
+      gap-12
+      items-center
+      "
+    >
 
 
 
@@ -71,8 +72,10 @@ export default function Hero() {
               alt="Al Tareeq Media Logo"
 
               className="
-              w-52
-              h-52
+              w-32
+              h-32
+              md:w-52
+              md:h-52
               object-contain
               rounded-xl
               "
@@ -102,8 +105,8 @@ export default function Hero() {
 
           <h1
             className="
-            text-5xl
-            md:text-7xl
+            text-4xl
+            md:text-7xl 
             font-bold
             leading-tight
             "
