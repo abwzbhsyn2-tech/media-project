@@ -116,7 +116,7 @@ export default function Hero() {
             <br />
 
 
-           الذي يترك{" "}
+         الذي يترك -
 
 <span className="text-[#F9C846]">
   أثرًا
