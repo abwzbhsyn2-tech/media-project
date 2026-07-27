@@ -3,355 +3,344 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-
-export default function Portfolio(){
-
-
-const [projects,setProjects] = useState<any[]>([]);
-
-
-
-useEffect(()=>{
-
-async function getProjects(){
-
-try{
-
-const res = await fetch("/api/projects", {
-  cache:"no-store"
-});
-
-const data = await res.json();
-
-setProjects(data);
-
-}
-
-catch(error){
-
-console.log(error);
-
-}
-
+interface Project {
+  id: number;
+  name: string;
+  desc: string;
+  image: string;
 }
 
 
-getProjects();
+export default function Portfolio() {
 
 
-},[]);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
 
 
 
+  async function getProjects() {
 
+    try {
 
-return (
+      const res = await fetch("/api/projects", {
+        method: "GET",
+        cache: "no-store",
+      });
 
-<section
 
-id="work"
+      const data = await res.json();
 
-className="
-py-24
-bg-[#F5F7FA]
-"
 
->
+      console.log("PROJECTS:", data);
 
 
-<div
+      setProjects(data);
 
-className="
-max-w-7xl
-mx-auto
-px-6
-"
 
->
+    } catch (error) {
 
+      console.log(error);
 
+    } finally {
 
-<motion.h2
+      setLoading(false);
 
-className="
-text-5xl
-font-bold
-text-center
-text-[#0B1F3A]
-mb-6
-"
+    }
 
-initial={{
-opacity:0,
-y:-40
-}}
+  }
 
-whileInView={{
-opacity:1,
-y:0
-}}
 
-viewport={{
-once:true
-}}
 
-transition={{
-duration:0.8
-}}
 
->
 
-أعمالنا
+  useEffect(() => {
 
-</motion.h2>
+    getProjects();
 
+  }, []);
 
 
 
 
-<div
 
-className="
-w-24
-h-1
-bg-[#F9C846]
-mx-auto
-mb-14
-rounded-full
-"
 
->
+  return (
 
-</div>
 
+    <section
+      id="work"
+      className="py-24 bg-[#F5F7FA]"
+    >
 
 
+      <div className="max-w-7xl mx-auto px-6">
 
 
 
+        <motion.h2
 
-<div
+          className="
+          text-5xl
+          font-bold
+          text-center
+          text-[#0B1F3A]
+          mb-6
+          "
 
-className="
-grid
-md:grid-cols-3
-gap-8
-"
+          initial={{
+            opacity:0,
+            y:-40
+          }}
 
->
+          whileInView={{
+            opacity:1,
+            y:0
+          }}
 
+          viewport={{
+            once:true
+          }}
 
+        >
 
-{
+          أعمالنا
 
-projects.length > 0 ? (
+        </motion.h2>
 
 
-projects.map((project,index)=>(
 
 
-<motion.div
 
-key={index}
+        <div
+          className="
+          w-24
+          h-1
+          bg-[#F9C846]
+          mx-auto
+          mb-14
+          rounded-full
+          "
+        >
 
-className="
-bg-white
-rounded-3xl
-overflow-hidden
-shadow-lg
-"
 
-initial={{
-opacity:0,
-y:50
-}}
+        </div>
 
-whileInView={{
-opacity:1,
-y:0
-}}
 
-viewport={{
-once:true
-}}
 
-transition={{
 
-duration:0.5,
 
-delay:index * 0.15
 
-}}
 
-whileHover={{
 
-y:-10
+        {
 
-}}
+          loading ? (
 
->
 
+            <p className="text-center text-gray-500">
 
+              جاري تحميل المشاريع...
 
-{/* الصورة */}
+            </p>
 
-{
 
-project.image &&
 
-<img
+          )
 
-src={project.image}
+          : projects.length === 0 ? (
 
-alt={
-project.title ||
-project.name ||
-"Project"
-}
 
-className="
-w-full
-h-60
-object-cover
-"
+            <p className="
+            text-center
+            text-gray-500
+            "
+            >
 
-/>
+              لا توجد أعمال مضافة حاليًا
 
-}
+            </p>
 
 
 
+          )
 
+          : (
 
 
-{/* معلومات المشروع */}
 
-<div
+            <div
+              className="
+              grid
+              grid-cols-1
+              md:grid-cols-3
+              gap-8
+              "
+            >
 
-className="
-p-8
-"
 
->
 
+              {
 
-<h3
+                projects.map((project,index)=>(
 
-className="
-text-2xl
-font-bold
-text-[#0B1F3A]
-mb-4
-"
 
->
 
-{
+                  <motion.div
 
-project.title ||
 
-project.name ||
+                    key={project.id}
 
-project.projectName ||
 
-"مشروع إعلامي"
+                    className="
+                    bg-white
+                    rounded-3xl
+                    overflow-hidden
+                    shadow-lg
+                    "
 
-}
 
-</h3>
 
+                    initial={{
+                      opacity:0,
+                      y:50
+                    }}
 
 
 
+                    whileInView={{
+                      opacity:1,
+                      y:0
+                    }}
 
 
-<p
 
-className="
-text-gray-600
-leading-8
-"
+                    viewport={{
+                      once:true
+                    }}
 
->
 
-{
 
-project.description ||
+                    transition={{
+                      duration:0.5,
+                      delay:index * 0.15
+                    }}
 
-project.desc ||
 
-project.details ||
 
-"إنتاج وتصوير محتوى إعلامي احترافي"
+                    whileHover={{
+                      y:-10
+                    }}
 
-}
 
-</p>
+                  >
 
 
 
 
-</div>
+                    <img
 
+                      src={project.image}
 
+                      alt={project.name}
 
-</motion.div>
+                      className="
+                      w-full
+                      h-60
+                      object-cover
+                      "
 
+                    />
 
 
-))
 
 
-)
 
-:
 
-(
 
+                    <div
+                      className="
+                      p-8
+                      "
+                    >
 
-<motion.p
 
-className="
-text-center
-text-gray-500
-col-span-3
-"
 
-initial={{
-opacity:0
-}}
+                      <h3
 
-whileInView={{
-opacity:1
-}}
+                        className="
+                        text-2xl
+                        font-bold
+                        text-[#0B1F3A]
+                        mb-4
+                        "
 
->
+                      >
 
-لا توجد أعمال مضافة حاليًا
+                        {project.name}
 
-</motion.p>
 
+                      </h3>
 
-)
 
 
 
-}
 
 
 
-</div>
+                      <p
 
+                        className="
+                        text-gray-600
+                        leading-8
+                        "
 
+                      >
 
-</div>
+                        {project.desc}
 
 
+                      </p>
 
-</section>
 
 
-);
+
+
+                    </div>
+
+
+
+
+
+                  </motion.div>
+
+
+
+                ))
+
+
+              }
+
+
+
+
+            </div>
+
+
+
+          )
+
+        }
+
+
+
+      </div>
+
+
+    </section>
+
+
+  );
 
 
 }

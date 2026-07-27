@@ -5,7 +5,8 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 
-// جلب كل المشاريع
+
+// GET - جلب المشاريع
 export async function GET() {
 
   try {
@@ -21,6 +22,9 @@ export async function GET() {
 
 
   } catch(error){
+
+    console.error("GET PROJECTS ERROR:", error);
+
 
     return NextResponse.json(
       {
@@ -38,9 +42,9 @@ export async function GET() {
 
 
 
-// إضافة مشروع جديد
-export async function POST(req: Request) {
 
+// POST - إضافة مشروع
+export async function POST(req:Request){
 
   try {
 
@@ -48,11 +52,31 @@ export async function POST(req: Request) {
     const body = await req.json();
 
 
+    console.log("NEW PROJECT:", body);
+
+
+
     const {
       name,
       desc,
       image
     } = body;
+
+
+
+    if(!name || !desc || !image){
+
+      return NextResponse.json(
+        {
+          error:"Missing project data"
+        },
+        {
+          status:400
+        }
+      );
+
+    }
+
 
 
 
@@ -68,25 +92,41 @@ export async function POST(req: Request) {
 
 
 
-    return NextResponse.json(project);
+    console.log("CREATED PROJECT:", project);
+
+
+
+    return NextResponse.json({
+
+      success:true,
+
+      project
+
+    });
 
 
 
   } catch(error){
 
 
+    console.error("CREATE PROJECT ERROR:", error);
+
+
+
     return NextResponse.json(
+
       {
         error:"Failed to create project"
       },
+
       {
         status:500
       }
+
     );
 
 
   }
-
 
 }
 
@@ -95,56 +135,9 @@ export async function POST(req: Request) {
 
 
 
-// حذف مشروع
-export async function DELETE(req: Request){
 
-
-  try{
-
-
-    const body = await req.json();
-
-
-    await prisma.project.delete({
-
-      where:{
-        id:Number(body.id)
-      }
-
-    });
-
-
-
-    return NextResponse.json({
-      success:true
-    });
-
-
-
-  }catch(error){
-
-
-    return NextResponse.json(
-      {
-        error:"Failed to delete project"
-      },
-      {
-        status:500
-      }
-    );
-
-
-  }
-
-
-}
-
-
-
-
-
-// تعديل مشروع
-export async function PUT(req: Request){
+// PUT - تعديل مشروع
+export async function PUT(req:Request){
 
 
   try{
@@ -170,29 +163,108 @@ export async function PUT(req: Request){
 
 
       data:{
+
         name,
+
         desc,
+
         image
+
       }
+
 
     });
 
 
 
-    return NextResponse.json(project);
+    return NextResponse.json({
+
+      success:true,
+
+      project
+
+    });
 
 
 
   }catch(error){
 
 
+    console.error("UPDATE PROJECT ERROR:",error);
+
+
+
     return NextResponse.json(
+
       {
         error:"Failed to update project"
       },
+
       {
         status:500
       }
+
+    );
+
+
+  }
+
+
+}
+
+
+
+
+
+
+
+
+// DELETE - حذف مشروع
+export async function DELETE(req:Request){
+
+
+  try{
+
+
+    const body = await req.json();
+
+
+
+    await prisma.project.delete({
+
+      where:{
+        id:Number(body.id)
+      }
+
+    });
+
+
+
+    return NextResponse.json({
+
+      success:true
+
+    });
+
+
+
+  }catch(error){
+
+
+    console.error("DELETE PROJECT ERROR:",error);
+
+
+
+    return NextResponse.json(
+
+      {
+        error:"Failed to delete project"
+      },
+
+      {
+        status:500
+      }
+
     );
 
 
