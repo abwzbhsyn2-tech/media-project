@@ -5,140 +5,256 @@ import { useState } from "react";
 
 export default function Header() {
 
-const [open,setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
 
-return (
+  return (
 
-<header className="
-w-full
-bg-[#0B1F3A]
-text-white
-shadow-lg
-relative
-z-50
-">
-
-
-<div className="
-flex
-justify-between
-items-center
-px-5
-py-4
-md:px-10
-">
+    <header className="
+      w-full
+      bg-[#0B1F3A]
+      text-white
+      shadow-lg
+      sticky
+      top-0
+      z-50
+    ">
 
 
-<div className="flex items-center gap-3">
-
-<Image
-src="/images/logo.jpg"
-alt="الطريق ميديا"
-width={50}
-height={50}
-className="rounded-full"
-/>
-
-
-<h1 className="
-text-xl
-md:text-3xl
-font-bold
-text-[#F9C846]
-">
-الطريق ميديا
-</h1>
+      <div className="
+        max-w-7xl
+        mx-auto
+        px-5
+        md:px-10
+        py-4
+        flex
+        justify-between
+        items-center
+      ">
 
 
-</div>
+        {/* الشعار */}
+
+        <div className="
+          flex
+          items-center
+          gap-3
+        ">
 
 
+          <Image
 
-{/* زر الموبايل */}
+            src="/images/logo.jpg"
 
-<button
+            alt="الطريق ميديا"
 
-className="
-md:hidden
-text-3xl
-"
+            width={60}
 
-onClick={()=>setOpen(!open)}
+            height={60}
 
->
+            className="
+              rounded-full
+              object-cover
+            "
 
-☰
-
-</button>
+          />
 
 
 
-<nav className="
-hidden
-md:flex
-gap-8
-text-lg
-">
+          <h1 className="
+            text-xl
+            md:text-3xl
+            font-bold
+            text-[#F9C846]
+          ">
+
+            الطريق ميديا
+
+          </h1>
 
 
-<a href="/">الرئيسية</a>
-
-<a href="#about">من نحن</a>
-
-<a href="#services">الخدمات</a>
-
-<a href="#work">أعمالنا</a>
-
-<a href="/admin">الإدارة</a>
-
-
-</nav>
-
-
-</div>
+        </div>
 
 
 
 
-{/* قائمة الموبايل */}
 
-{
+        {/* زر الموبايل */}
 
-open && (
+       <button
 
-<nav className="
-md:hidden
-flex
-flex-col
-text-center
-gap-5
-pb-6
-text-lg
-">
+        className="
+        hidden
+        text-3xl
+        "
 
+        onClick={() => setOpen(!open)}
 
-<a href="/">الرئيسية</a>
-
-<a href="#about">من نحن</a>
-
-<a href="#services">الخدمات</a>
-
-<a href="#work">أعمالنا</a>
-
-<a href="/admin">الإدارة</a>
+        >
+        ☰
+        </button>
 
 
-</nav>
-
-)
-
-}
 
 
-</header>
 
 
-);
+
+        {/* روابط الكمبيوتر */}
+
+        <nav className="
+        flex
+        items-center
+        gap-8
+        text-lg
+        ">
+
+
+          <a
+            href="/"
+            className="hover:text-[#F9C846] transition"
+          >
+
+            الرئيسية
+
+          </a>
+
+
+
+          <a
+            href="#about"
+            className="hover:text-[#F9C846] transition"
+          >
+
+            من نحن
+
+          </a>
+
+
+
+          <a
+            href="#services"
+            className="hover:text-[#F9C846] transition"
+          >
+
+            الخدمات
+
+          </a>
+
+
+
+          <a
+            href="#work"
+            className="hover:text-[#F9C846] transition"
+          >
+
+            أعمالنا
+
+          </a>
+
+
+
+          <a
+            href="/admin"
+            className="hover:text-[#F9C846] transition"
+          >
+
+            الإدارة
+
+          </a>
+
+
+
+        </nav>
+
+
+
+      </div>
+
+
+
+
+
+
+
+      {/* قائمة الموبايل */}
+
+      {open && (
+
+        <nav className="
+          md:hidden
+          flex
+          flex-col
+          items-center
+          gap-5
+          pb-6
+          text-lg
+        ">
+
+
+          <a
+            href="/"
+            className="hover:text-[#F9C846]"
+          >
+
+            الرئيسية
+
+          </a>
+
+
+
+          <a
+            href="#about"
+            className="hover:text-[#F9C846]"
+          >
+
+            من نحن
+
+          </a>
+
+
+
+          <a
+            href="#services"
+            className="hover:text-[#F9C846]"
+          >
+
+            الخدمات
+
+          </a>
+
+
+
+          <a
+            href="#work"
+            className="hover:text-[#F9C846]"
+          >
+
+            أعمالنا
+
+          </a>
+
+
+
+          <a
+            href="/admin"
+            className="hover:text-[#F9C846]"
+          >
+
+            الإدارة
+
+          </a>
+
+
+
+        </nav>
+
+      )}
+
+
+
+    </header>
+
+  );
 
 }
