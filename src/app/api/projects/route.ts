@@ -6,36 +6,68 @@ const prisma = new PrismaClient();
 
 
 
-// GET - جلب المشاريع
-export async function GET() {
 
-  try {
+// GET - جلب المشاريع
+
+export async function GET(){
+
+
+  try{
+
 
     const projects = await prisma.project.findMany({
+
       orderBy:{
         createdAt:"desc"
       }
+
     });
 
 
-    return NextResponse.json(projects);
+
+    return NextResponse.json(
+
+      projects,
+
+      {
+
+        headers:{
+
+          "Cache-Control":"no-store, no-cache, must-revalidate"
+
+        }
+
+      }
+
+    );
 
 
-  } catch(error){
 
-    console.error("GET PROJECTS ERROR:", error);
+  }catch(error){
+
+
+    console.error(
+      "GET PROJECTS ERROR:",
+      error
+    );
+
 
 
     return NextResponse.json(
+
       {
         error:"Failed to get projects"
       },
+
       {
         status:500
       }
+
     );
 
+
   }
+
 
 }
 
@@ -43,16 +75,28 @@ export async function GET() {
 
 
 
-// POST - إضافة مشروع
-export async function POST(req:Request){
 
-  try {
+
+
+// POST - إضافة مشروع جديد
+
+export async function POST(
+  req:Request
+){
+
+
+  try{
 
 
     const body = await req.json();
 
 
-    console.log("NEW PROJECT:", body);
+
+    console.log(
+      "NEW PROJECT:",
+      body
+    );
+
 
 
 
@@ -64,52 +108,89 @@ export async function POST(req:Request){
 
 
 
-    if(!name || !desc || !image){
+
+
+    if(
+      !name ||
+      !desc ||
+      !image
+    ){
+
 
       return NextResponse.json(
+
         {
           error:"Missing project data"
         },
+
         {
           status:400
         }
+
       );
+
 
     }
 
 
 
 
+
+
+
     const project = await prisma.project.create({
 
+
       data:{
+
         name,
+
         desc,
+
         image
+
       }
 
+
     });
 
 
 
-    console.log("CREATED PROJECT:", project);
 
 
 
-    return NextResponse.json({
-
-      success:true,
-
+    console.log(
+      "CREATED PROJECT:",
       project
-
-    });
-
+    );
 
 
-  } catch(error){
 
 
-    console.error("CREATE PROJECT ERROR:", error);
+
+    return NextResponse.json(
+
+      {
+
+        success:true,
+
+        project
+
+      }
+
+    );
+
+
+
+
+
+  }catch(error){
+
+
+    console.error(
+      "CREATE PROJECT ERROR:",
+      error
+    );
 
 
 
@@ -128,6 +209,7 @@ export async function POST(req:Request){
 
   }
 
+
 }
 
 
@@ -136,14 +218,20 @@ export async function POST(req:Request){
 
 
 
+
+
 // PUT - تعديل مشروع
-export async function PUT(req:Request){
+
+export async function PUT(
+  req:Request
+){
 
 
   try{
 
 
     const body = await req.json();
+
 
 
     const {
@@ -155,11 +243,17 @@ export async function PUT(req:Request){
 
 
 
+
+
     const project = await prisma.project.update({
 
+
       where:{
+
         id:Number(id)
+
       },
+
 
 
       data:{
@@ -177,20 +271,32 @@ export async function PUT(req:Request){
 
 
 
-    return NextResponse.json({
 
-      success:true,
 
-      project
+    return NextResponse.json(
 
-    });
+      {
+
+        success:true,
+
+        project
+
+      }
+
+    );
+
+
 
 
 
   }catch(error){
 
 
-    console.error("UPDATE PROJECT ERROR:",error);
+
+    console.error(
+      "UPDATE PROJECT ERROR:",
+      error
+    );
 
 
 
@@ -219,8 +325,12 @@ export async function PUT(req:Request){
 
 
 
+
 // DELETE - حذف مشروع
-export async function DELETE(req:Request){
+
+export async function DELETE(
+  req:Request
+){
 
 
   try{
@@ -230,28 +340,45 @@ export async function DELETE(req:Request){
 
 
 
+
     await prisma.project.delete({
 
+
       where:{
+
         id:Number(body.id)
+
       }
 
-    });
-
-
-
-    return NextResponse.json({
-
-      success:true
 
     });
+
+
+
+
+
+    return NextResponse.json(
+
+      {
+
+        success:true
+
+      }
+
+    );
+
+
 
 
 
   }catch(error){
 
 
-    console.error("DELETE PROJECT ERROR:",error);
+
+    console.error(
+      "DELETE PROJECT ERROR:",
+      error
+    );
 
 
 
