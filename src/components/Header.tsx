@@ -82,14 +82,12 @@ export default function Header() {
         {/* زر الموبايل */}
 
        <button
-
         className="
-        hidden
+        block
+        md:hidden
         text-3xl
         "
-
         onClick={() => setOpen(!open)}
-
         >
         ☰
         </button>
@@ -102,12 +100,15 @@ export default function Header() {
 
         {/* روابط الكمبيوتر */}
 
-        <nav className="
-        flex
+        <nav
+        className="
+        hidden
+        md:flex
         items-center
         gap-8
         text-lg
-        ">
+        "
+        >
 
 
           <a
