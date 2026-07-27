@@ -117,8 +117,11 @@ rounded-full
 
 className="
 grid
+grid-cols-1
+sm:grid-cols-2
 md:grid-cols-3
-gap-8
+gap-6
+md:gap-8
 "
 
 >
@@ -183,7 +186,8 @@ alt={service.title}
 
 className="
 w-full
-h-56
+h-48
+md:h-56
 object-cover
 "
 
