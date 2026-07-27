@@ -157,7 +157,7 @@ export default function Portfolio() {
             <p className="
             text-center
             text-gray-500
-            "ش
+            "
             >
 
               لا توجد أعمال مضافة حاليًا
