@@ -54,11 +54,7 @@ password,
 user.password
 );
 
-console.log("PASSWORD CHECK:", {
-  entered: password,
-  hash: user.password,
-  result: passwordMatch
-});
+
 
 
 
