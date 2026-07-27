@@ -22,17 +22,18 @@ export default function Hero() {
 
 
           <div
-      className="
-      max-w-7xl
-      mx-auto
-      px-6
-      grid
-      grid-cols-1
-      md:grid-cols-2
-      gap-12
-      items-center
-      "
-    >
+          className="
+          max-w-7xl
+          mx-auto
+          px-6
+          grid
+          grid-cols-1
+          md:grid-cols-2
+          gap-8
+          md:gap-12
+          items-center
+          "
+        >
 
 
 
@@ -132,13 +133,15 @@ export default function Hero() {
 
 
           <p
-            className="
-            mt-6
-            text-xl
-            text-gray-300
-            leading-9
-            "
-          >
+          className="
+          mt-6
+          text-base
+          md:text-xl
+          text-gray-300
+          leading-7
+          md:leading-9
+          "
+        >
 
             الطريق ميديا شركة متخصصة في الإنتاج الإعلامي
             وصناعة المحتوى الإبداعي والإعلانات الرقمية،
@@ -257,7 +260,8 @@ export default function Hero() {
             className="
             relative
             w-full
-            h-[420px]
+            h-[280px]
+            md:h-[420px]
             rounded-3xl
             overflow-hidden
             bg-black/30
