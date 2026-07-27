@@ -13,15 +13,28 @@ const [projects,setProjects] = useState<any[]>([]);
 
 useEffect(()=>{
 
+async function getProjects(){
 
-const data = JSON.parse(
+try{
 
-localStorage.getItem("projects") || "[]"
+const res = await fetch("/api/projects");
 
-);
-
+const data = await res.json();
 
 setProjects(data);
+
+}
+
+catch(error){
+
+console.log(error);
+
+}
+
+}
+
+
+getProjects();
 
 
 },[]);

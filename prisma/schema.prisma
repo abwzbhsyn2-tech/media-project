@@ -2,10 +2,12 @@ generator client {
   provider = "prisma-client-js"
 }
 
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 
 
 model User {
@@ -24,7 +26,6 @@ model User {
 
 
 
-
 model Project {
 
   id        Int      @id @default(autoincrement())
@@ -36,5 +37,21 @@ model Project {
   image     String
 
   createdAt DateTime @default(now())
+
+}
+
+
+
+model Service {
+
+  id          Int      @id @default(autoincrement())
+
+  title       String
+
+  description String
+
+  image       String?
+
+  createdAt   DateTime @default(now())
 
 }
