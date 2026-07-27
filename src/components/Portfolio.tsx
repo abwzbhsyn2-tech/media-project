@@ -1,349 +1,166 @@
-"use client";
-
-import { useEffect, useState } from "react";
+import { PrismaClient } from "@prisma/client";
 import { motion } from "framer-motion";
 
-interface Project {
-  id: number;
-  name: string;
-  desc: string;
-  image: string;
+
+const prisma = new PrismaClient();
+
+
+
+export default async function Portfolio() {
+
+
+const projects = await prisma.project.findMany({
+
+orderBy:{
+createdAt:"desc"
 }
 
-
-export default function Portfolio() {
-
-
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
-
-
-
-  async function getProjects() {
-
-    try {
-
-      const res = await fetch("/api/projects", {
-  method: "GET",
-  cache: "no-store",
-  next: {
-    revalidate: 0
-  }
 });
 
 
-      const data = await res.json();
 
+return (
 
-      console.log("PROJECTS:", data);
+<section
 
+id="work"
 
-      setProjects(data);
+className="py-24 bg-[#F5F7FA]"
 
+>
 
-    } catch (error) {
+<div className="max-w-7xl mx-auto px-6">
 
-      console.log(error);
 
-    } finally {
 
-      setLoading(false);
+<motion.h2
 
-    }
+className="
+text-5xl
+font-bold
+text-center
+text-[#0B1F3A]
+mb-6
+"
 
-  }
+>
 
+أعمالنا
 
+</motion.h2>
 
 
 
-  useEffect(() => {
 
-    getProjects();
+<div className="
+w-24
+h-1
+bg-[#F9C846]
+mx-auto
+mb-14
+rounded-full
+">
 
-  }, []);
+</div>
 
 
 
 
 
+<div className="
+grid
+grid-cols-1
+md:grid-cols-3
+gap-8
+">
 
-  return (
 
+{
 
-    <section
-      id="work"
-      className="py-24 bg-[#F5F7FA]"
-    >
 
+projects.map((project)=>(
 
-      <div className="max-w-7xl mx-auto px-6">
 
+<div
 
+key={project.id}
 
-        <motion.h2
+className="
+bg-white
+rounded-3xl
+overflow-hidden
+shadow-lg
+"
 
-          className="
-          text-5xl
-          font-bold
-          text-center
-          text-[#0B1F3A]
-          mb-6
-          "
+>
 
-          initial={{
-            opacity:0,
-            y:-40
-          }}
 
-          whileInView={{
-            opacity:1,
-            y:0
-          }}
+<img
 
-          viewport={{
-            once:true
-          }}
+src={project.image}
 
-        >
+alt={project.name}
 
-          أعمالنا
+className="
+w-full
+h-60
+object-cover
+"
 
-        </motion.h2>
+/>
 
 
 
+<div className="p-8">
 
 
-        <div
-          className="
-          w-24
-          h-1
-          bg-[#F9C846]
-          mx-auto
-          mb-14
-          rounded-full
-          "
-        >
+<h3 className="
+text-2xl
+font-bold
+text-[#0B1F3A]
+mb-4
+">
 
+{project.name}
 
-        </div>
+</h3>
 
 
 
 
+<p className="
+text-gray-600
+leading-8
+">
 
+{project.desc}
 
+</p>
 
 
-        {
+</div>
 
-          loading ? (
 
+</div>
 
-            <p className="text-center text-gray-500">
 
-              جاري تحميل المشاريع...
+))
 
-            </p>
 
+}
 
 
-          )
 
-          : projects.length === 0 ? (
+</div>
 
 
-            <p className="
-            text-center
-            text-gray-500
-            "
-            >
 
-              لا توجد أعمال مضافة حاليًا
+</div>
 
-            </p>
 
+</section>
 
-
-          )
-
-          : (
-
-
-
-            <div
-              className="
-              grid
-              grid-cols-1
-              md:grid-cols-3
-              gap-8
-              "
-            >
-
-
-
-              {
-
-                projects.map((project,index)=>(
-
-
-
-                  <motion.div
-
-
-                    key={project.id}
-
-
-                    className="
-                    bg-white
-                    rounded-3xl
-                    overflow-hidden
-                    shadow-lg
-                    "
-
-
-
-                    initial={{
-                      opacity:0,
-                      y:50
-                    }}
-
-
-
-                    whileInView={{
-                      opacity:1,
-                      y:0
-                    }}
-
-
-
-                    viewport={{
-                      once:true
-                    }}
-
-
-
-                    transition={{
-                      duration:0.5,
-                      delay:index * 0.15
-                    }}
-
-
-
-                    whileHover={{
-                      y:-10
-                    }}
-
-
-                  >
-
-
-
-
-                    <img
-
-                      src={project.image}
-
-                      alt={project.name}
-
-                      className="
-                      w-full
-                      h-60
-                      object-cover
-                      "
-
-                    />
-
-
-
-
-
-
-
-                    <div
-                      className="
-                      p-8
-                      "
-                    >
-
-
-
-                      <h3
-
-                        className="
-                        text-2xl
-                        font-bold
-                        text-[#0B1F3A]
-                        mb-4
-                        "
-
-                      >
-
-                        {project.name}
-
-
-                      </h3>
-
-
-
-
-
-
-
-                      <p
-
-                        className="
-                        text-gray-600
-                        leading-8
-                        "
-
-                      >
-
-                        {project.desc}
-
-
-                      </p>
-
-
-
-
-
-                    </div>
-
-
-
-
-
-                  </motion.div>
-
-
-
-                ))
-
-
-              }
-
-
-
-
-            </div>
-
-
-
-          )
-
-        }
-
-
-
-      </div>
-
-
-    </section>
-
-
-  );
+);
 
 
 }
