@@ -21,7 +21,9 @@ export default function ProjectsPage() {
   const [editId, setEditId] = useState<number | null>(null);
 
   async function getProjects() {
-    const res = await fetch("/api/projects");
+    const res = await fetch("/api/projects", {
+  cache: "no-store"
+});
     const data = await res.json();
     setProjects(data);
   }

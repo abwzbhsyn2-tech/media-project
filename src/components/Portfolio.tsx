@@ -17,7 +17,9 @@ async function getProjects(){
 
 try{
 
-const res = await fetch("/api/projects");
+const res = await fetch("/api/projects", {
+  cache:"no-store"
+});
 
 const data = await res.json();
 
