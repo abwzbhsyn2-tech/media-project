@@ -89,7 +89,13 @@ response.cookies.set(
 
 "admin_session",
 
-"logged",
+JSON.stringify({
+
+id:user.id,
+
+username:user.username
+
+}),
 
 {
 
